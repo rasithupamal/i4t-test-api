@@ -73,7 +73,7 @@ class TaskController extends Controller
 
             $task = $this->taskRepository->find($task->id, $userId);
             if (!$task) {
-                return response()->json('404')->setStatusCode('404');
+                return response()->json(['message' => "Task not found"],404);
             }
             return new TaskResource($task);
         } catch (ModelNotFoundException $e) {
@@ -95,9 +95,9 @@ class TaskController extends Controller
     {
         try {
             $userId = auth()->id();
-            $task = $this->taskRepository->find($userId, $task->id);
+            $task = $this->taskRepository->find($task->id, $userId);
             if (!$task) {
-                return response()->json('404')->setStatusCode('404');
+                return response()->json(['message' => "Task not found."],404);
             }
             $this->taskRepository->update($task, $request->validated());
             return response()->json([
@@ -127,7 +127,7 @@ class TaskController extends Controller
             $userId = auth()->id();
             $task = $this->taskRepository->find($task->id, $userId);
             if (!$task) {
-                return response()->json('404')->setStatusCode('404');
+                return response()->json(['message' => "Task not found"],404);
             }
             $this->taskRepository->delete($task);
             return response()->json(null, 204);
@@ -146,7 +146,7 @@ class TaskController extends Controller
             $task = $this->taskRepository->find($task->id, $userId);
 
             if (!$task) {
-                return response()->json('404')->setStatusCode('404');
+                return response()->json(['message' => "Task not found"],404);
             }
             $this->taskRepository->markStatusAsCompleted($task);
             // return new TaskResource($task);
