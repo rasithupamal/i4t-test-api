@@ -24,4 +24,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
 
 
+    Route::get('tasks', [TaskController::class, 'index'])->name('task.index');
+    Route::post('tasks', [TaskController::class, 'store'])->name('task.store');
+    Route::put('tasks/{task}', [TaskController::class, 'update'])->name('task.update');
+    Route::get('tasks/{task}', [TaskController::class, 'show'])->name('task.show');
+    Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
+    Route::put('tasks/{task}/mark-as-completed', [TaskController::class, 'updateTaskAsCompeleted'])->name('task.destroy');
 });
